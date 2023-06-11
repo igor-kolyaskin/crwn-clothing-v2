@@ -1,9 +1,10 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./routes/home/home.component";
-import Navigation from "./routes/navigation/navigation.component";
-import SignIn from "./routes/sign-in/sign-in.component";
+import { Routes, Route } from 'react-router-dom';
+import Home from './routes/home/home.component';
+import Navigation from './routes/navigation/navigation.component';
+import SignIn from './routes/sign-in/sign-in.component';
 
 const Shop = () => {
+  // eslint-disable-next-line react/no-unescaped-entities
   return <div>I'm a Shop page</div>;
 };
 const App = () => {

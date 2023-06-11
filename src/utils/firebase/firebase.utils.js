@@ -1,28 +1,31 @@
-import { initializeApp } from "firebase/app";
+// eslint-disable-next-line no-unused-vars
+import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+} from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
+// eslint-disable-next-line no-unused-vars
 const firebaseConfig = {
-  apiKey: "AIzaSyC6LuI2wi5Yt8Tks1nXvHW5_K5bfMGI6vY",
-  authDomain: "crwn-clothing-db-64c50.firebaseapp.com",
-  projectId: "crwn-clothing-db-64c50",
-  storageBucket: "crwn-clothing-db-64c50.appspot.com",
-  messagingSenderId: "13695274262",
-  appId: "1:13695274262:web:4afba13a721cb0d8fbd437",
+  apiKey: 'AIzaSyC6LuI2wi5Yt8Tks1nXvHW5_K5bfMGI6vY',
+  authDomain: 'crwn-clothing-db-64c50.firebaseapp.com',
+  projectId: 'crwn-clothing-db-64c50',
+  storageBucket: 'crwn-clothing-db-64c50.appspot.com',
+  messagingSenderId: '13695274262',
+  appId: '1:13695274262:web:4afba13a721cb0d8fbd437',
 };
 
+// eslint-disable-next-line no-unused-vars
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 export const auth = getAuth();
@@ -39,10 +42,10 @@ export const createUserDocumentFromAuth = async (
 ) => {
   if (!userAuth) return;
 
-  const userDocRef = doc(db, "users", userAuth.uid);
+  const userDocRef = doc(db, 'users', userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
-  console.log("snapshot", userSnapshot.exists());
+  console.log('snapshot', userSnapshot.exists());
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
@@ -55,7 +58,7 @@ export const createUserDocumentFromAuth = async (
         ...additionalInfo,
       });
     } catch (error) {
-      console.log("error creating the user", error.message);
+      console.log('error creating the user', error.message);
     }
   }
 
