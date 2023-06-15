@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../../contexts/user.context';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth
@@ -17,6 +18,8 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  // eslint-disable-next-line no-unused-vars
+  const { setCurrentUser } = useContext(UserContext);
 
   const clearFormFields = () => {
     setFormFields(defaultFormFields);
