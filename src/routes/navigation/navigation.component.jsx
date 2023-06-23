@@ -4,10 +4,12 @@ import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import './navigation.styles.scss';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
+import CartIcon from '../../components/cart-icon/cart-icon.component';
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 
 const Navigation = () => {
     // eslint-disable-next-line no-unused-vars
-    const { currentUser} = useContext(UserContext);
+    const { currentUser } = useContext(UserContext);
     const signOutHandler = async () => {
         await signOutUser();
     };
@@ -21,7 +23,9 @@ const Navigation = () => {
                     {currentUser
                         ? <span className='nav-link' onClick={signOutHandler}>SIGN OUT</span>
                         : <Link className="nav-link" to="auth">SIGN IN</Link>}
+                    <CartIcon />
                 </div>
+                <CartDropdown />
             </div>
             <Outlet />
         </Fragment>
