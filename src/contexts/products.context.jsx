@@ -1,13 +1,18 @@
-import { createContext, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { createContext, useEffect, useState } from 'react';
+import { addCollectionAndDocuments } from '../utils/firebase/firebase.utils';
 
-import PRODUCTS from '../shop-data.json';
+// import SHOP_DATA from '../shop-data.js';
 
 export const ProductsContext = createContext({
     products: []
 });
 export const ProductsProvider = ({ children }) => {
-    // eslint-disable-next-line no-unused-vars
-    const [products, setProducts] = useState(PRODUCTS);
+    const [products, setProducts] = useState([]);
+    // useEffect(() => {
+    //     addCollectionAndDocuments('categories', SHOP_DATA);
+    // }, []);
+
     const value = { products };
     return (
         <ProductsContext.Provider value={value}>
