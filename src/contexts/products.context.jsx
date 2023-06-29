@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { createContext, useEffect, useState } from 'react';
-import { addCollectionAndDocuments } from '../utils/firebase/firebase.utils';
+import {
+    addCollectionAndDocuments,
+    getCategoryAndDocuments
+} from '../utils/firebase/firebase.utils';
 
 // import SHOP_DATA from '../shop-data.js';
 
@@ -12,6 +15,15 @@ export const ProductsProvider = ({ children }) => {
     // useEffect(() => {
     //     addCollectionAndDocuments('categories', SHOP_DATA);
     // }, []);
+
+    useEffect(() => {
+        const getCategoriesMap = async () => {
+            const categoryMap = await getCategoryAndDocuments();
+            console.log('done', categoryMap);
+        };
+        
+        getCategoriesMap()
+    }, []);
 
     const value = { products };
     return (
