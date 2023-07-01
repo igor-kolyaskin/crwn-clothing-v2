@@ -1,12 +1,19 @@
+/* eslint-disable no-unused-vars */
 import { Fragment, useContext } from 'react';
 import { UserContext } from '../../contexts/user.context';
 import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
-import './navigation.styles.scss';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { CartContext } from '../../contexts/cart.context';
+
+import {
+    LogoComponent,
+    NavLink,
+    NavLinks,
+    NavigationContainer
+} from './navigation.styles';
 
 const Navigation = () => {
     // eslint-disable-next-line no-unused-vars
@@ -19,17 +26,17 @@ const Navigation = () => {
 
     return (
         <Fragment>
-            <div className="navigation">
-                <Link className="logo-container" to="/"><CrwnLogo className="logo" /></Link>
-                <div className="nav-links-container">
-                    <Link className="nav-link" to="shop">SHOP</Link>
+            <NavigationContainer>
+                <LogoComponent to="/"><CrwnLogo className="logo" /></LogoComponent>
+                <NavLinks>
+                    <NavLink to="shop">SHOP</NavLink>
                     {currentUser
-                        ? <span className='nav-link' onClick={signOutHandler}>SIGN OUT</span>
-                        : <Link className="nav-link" to="auth">SIGN IN</Link>}
+                        ? <NavLink as='span' onClick={signOutHandler}>SIGN OUT</NavLink>
+                        : <NavLink to="auth">SIGN IN</NavLink>}
                     <CartIcon />
-                </div>
+                </NavLinks>
                 {isCartOpen && <CartDropdown />}
-            </div>
+            </NavigationContainer>
             <Outlet />
         </Fragment>
     );
