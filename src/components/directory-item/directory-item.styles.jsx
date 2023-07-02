@@ -6,7 +6,6 @@ export const BackgroundImage = styled.div`
   background-size: cover;
   background-position: center;
   background-image: ${(props) => {
-    // console.log('props', props)
     return `url(${props.$imageUrl})`}};
 `;
 

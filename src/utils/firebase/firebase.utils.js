@@ -61,7 +61,6 @@ export const addCollectionAndDocuments = async (
   });
 
   batch.commit();
-  console.log('done');
 };
 
 export const getCategoryAndDocuments = async () => {
