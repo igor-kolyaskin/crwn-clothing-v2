@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { Fragment, useContext } from 'react';
-import { UserContext } from '../../contexts/user.context';
 import { Outlet, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { CartContext } from '../../contexts/cart.context';
+import { selectCurrentUser } from '../../store/user/user.selector';
 
 import {
     LogoComponent,
@@ -16,8 +18,7 @@ import {
 } from './navigation.styles';
 
 const Navigation = () => {
-    // eslint-disable-next-line no-unused-vars
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
     const { isCartOpen } = useContext(CartContext);
 
     const signOutHandler = async () => {
