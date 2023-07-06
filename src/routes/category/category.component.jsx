@@ -9,11 +9,13 @@ import ProductCard from '../../components/product-card/product-card.component';
 
 const Category = () => {
     const { category } = useParams();
+    console.log('Catefory render')
     const categoriesMap = useSelector(selectCategoriesMap);
 
     const [products, setProducts] = useState(categoriesMap[category]);
 
     useEffect(() => {
+        console.log('from Category effect setProducts')
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
 
