@@ -67,8 +67,10 @@ export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
   const q = query(collectionRef);
 
+  // await Promise.reject(new Error('my test error'))
+
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 
   // .reduce((acc, docSnapshot) => {
   //   const { title, items } = docSnapshot.data();
