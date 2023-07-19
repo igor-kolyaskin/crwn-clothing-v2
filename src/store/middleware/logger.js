@@ -1,11 +1,13 @@
 export const loggerMiddleware = (store) => (next) => (action) => {
-  if (!action.type) return next(action);
+  if (!action.type) {
+    return next(action);
+  }
 
   console.log('type: ', action.type);
   console.log('payload: ', action.payload);
-  console.log('current state: ', store.getState());
+  console.log('currentState: ', store.getState());
 
   next(action);
 
-  console.log('next State: ', store.getState());
+  console.log('next state: ', store.getState());
 };

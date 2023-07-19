@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -21,21 +21,19 @@ import {
   getDocs,
 } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
-// eslint-disable-next-line no-unused-vars
 const firebaseConfig = {
-  apiKey: 'AIzaSyC6LuI2wi5Yt8Tks1nXvHW5_K5bfMGI6vY',
-  authDomain: 'crwn-clothing-db-64c50.firebaseapp.com',
-  projectId: 'crwn-clothing-db-64c50',
-  storageBucket: 'crwn-clothing-db-64c50.appspot.com',
-  messagingSenderId: '13695274262',
-  appId: '1:13695274262:web:4afba13a721cb0d8fbd437',
+  apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+  authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+  projectId: 'crwn-clothing-db-98d4d',
+  storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+  messagingSenderId: '626766232035',
+  appId: '1:626766232035:web:506621582dab103a4d08d6',
 };
 
-// eslint-disable-next-line no-unused-vars
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
+
 googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
@@ -50,7 +48,8 @@ export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToAdd
+  objectsToAdd,
+  field
 ) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -60,30 +59,21 @@ export const addCollectionAndDocuments = async (
     batch.set(docRef, object);
   });
 
-  batch.commit();
+  await batch.commit();
+  console.log('done');
 };
 
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
   const q = query(collectionRef);
 
-  // await Promise.reject(new Error('my test error'))
-
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
-
-  // .reduce((acc, docSnapshot) => {
-  //   const { title, items } = docSnapshot.data();
-  //   acc[title.toLowerCase()] = items;
-  //   return acc;
-  // }, {});
-
-  // return categoryMap;
 };
 
 export const createUserDocumentFromAuth = async (
   userAuth,
-  additionalInfo = {}
+  additionalInformation = {}
 ) => {
   if (!userAuth) return;
 
@@ -94,12 +84,13 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
-        ...additionalInfo,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log('error creating the user', error.message);
@@ -111,15 +102,17 @@ export const createUserDocumentFromAuth = async (
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
+
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
+
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangeListener = (callback) =>
+export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
