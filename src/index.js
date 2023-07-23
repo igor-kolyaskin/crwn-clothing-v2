@@ -8,7 +8,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 // eslint-disable-next-line no-unused-vars
 import { store, persistor } from './store/store';
-
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/stripe.utils';
 import './index.scss';
 
 const rootElement = document.getElementById('root');
@@ -17,9 +18,11 @@ render(
   <React.StrictMode>
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
-        <BrowserRouter>
+      <BrowserRouter>
+        <Elements stripe={stripePromise}>
           <App />
-        </BrowserRouter>
+        </Elements>
+      </BrowserRouter>
       {/* </PersistGate> */}
     </Provider>
   </React.StrictMode>,
